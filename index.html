@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Horas</title>
-  <link rel="stylesheet" href="style.css?v=1.1">
-  <link rel="manifest" href="manifest.json?v=1.1">
+  <link rel="stylesheet" href="style.css?v=1.2">
+  <link rel="manifest" href="manifest.json?v=1.2">
 </head>
 <body>
   <header>
@@ -35,9 +35,10 @@
 
     <section class="card">
       <h2>Resumen</h2>
-      <p>Total de horas: <span id="total-horas">0</span></p>
-      <p>Hoy: <span id="resumen-dia">0</span></p>
-      <p>Semana: <span id="resumen-semana">0</span></p>
+      <p>Total de horas: <span id="total-horas">00:00</span></p>
+      <p>Hoy: <span id="resumen-dia">00:00</span></p>
+      <p>Semana: <span id="resumen-semana">00:00</span></p>
+      <p>Mes: <span id="resumen-mes">00:00</span></p>
     </section>
 
     <section class="card">
@@ -46,10 +47,10 @@
     </section>
   </main>
 
-  <script src="script.js?v=1.1"></script>
+  <script src="script.js?v=1.2"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js?v=1.1');
+      navigator.serviceWorker.register('service-worker.js?v=1.2');
     }
   </script>
 </body>
