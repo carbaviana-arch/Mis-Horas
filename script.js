@@ -1,3 +1,5 @@
+const { jsPDF } = window.jspdf;
+
 const form = document.getElementById("registro-form");
 const historialEl = document.getElementById("historial");
 const totalHorasEl = document.getElementById("total-horas");
@@ -5,6 +7,7 @@ const resumenDiaEl = document.getElementById("resumen-dia");
 const resumenSemanaEl = document.getElementById("resumen-semana");
 const resumenMesEl = document.getElementById("resumen-mes");
 const darkToggle = document.getElementById("darkToggle");
+const exportPdfBtn = document.getElementById("exportPdf");
 
 let registros = JSON.parse(localStorage.getItem("registros")) || [];
 
@@ -95,6 +98,28 @@ if(localStorage.getItem("darkMode")==="true"){
 darkToggle.addEventListener("change",()=>{
   document.body.classList.toggle("dark");
   localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+});
+
+// Exportar PDF
+exportPdfBtn.addEventListener("click",()=>{
+  const doc = new jsPDF();
+  doc.setFontSize(16);
+  doc.text("Informe de Horas", 20, 20);
+  doc.setFontSize(12);
+  doc.text(`Total: ${totalHorasEl.textContent}`, 20, 30);
+  doc.text(`Hoy: ${resumenDiaEl.textContent}`, 20, 38);
+  doc.text(`Semana: ${resumenSemanaEl.textContent}`, 20, 46);
+  doc.text(`Mes: ${resumenMesEl.textContent}`, 20, 54);
+
+  let y = 64;
+  registros.forEach(r=>{
+    const min = calcularMinutos(r.entrada,r.salida);
+    doc.text(`${r.fecha} (${r.entrada}-${r.salida}) - ${minutosAHoras(min)}`, 20, y);
+    y += 8;
+    if(y > 280){ doc.addPage(); y = 20; }
+  });
+
+  doc.save("registro-horas.pdf");
 });
 
 render();
