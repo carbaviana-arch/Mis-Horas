@@ -4,56 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Horas</title>
-  <link rel="stylesheet" href="style.css?v=1.3">
-  <link rel="manifest" href="manifest.json?v=1.3">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <header>
-    <h1>⏱️ Registro de Horas</h1>
+    <div class="logo">
+      <!-- Icono SVG minimalista estilo iOS -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="3" ry="3"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg>
+      <h1>Registro de Horas</h1>
+    </div>
     <label class="switch">
-      <input type="checkbox" id="darkToggle">
+      <input type="checkbox" id="darkModeSwitch">
       <span class="slider"></span>
     </label>
   </header>
 
   <main>
-    <section class="card">
+    <section id="registro">
       <h2>Nuevo Registro</h2>
       <form id="registro-form">
-        <label>Fecha:
-          <input type="date" id="fecha" required>
-        </label>
-        <label>Entrada:
-          <input type="time" id="entrada" required>
-        </label>
-        <label>Salida:
-          <input type="time" id="salida" required>
-        </label>
+        <label for="fecha">Fecha</label>
+        <input type="date" id="fecha" required>
+
+        <label for="entrada">Hora de entrada</label>
+        <input type="time" id="entrada" required>
+
+        <label for="salida">Hora de salida</label>
+        <input type="time" id="salida" required>
+
         <button type="submit">Guardar</button>
       </form>
     </section>
 
-    <section class="card">
+    <section id="resumen">
       <h2>Resumen</h2>
-      <p>Total de horas: <span id="total-horas">00:00</span></p>
-      <p>Hoy: <span id="resumen-dia">00:00</span></p>
-      <p>Semana: <span id="resumen-semana">00:00</span></p>
-      <p>Mes: <span id="resumen-mes">00:00</span></p>
-      <button id="exportPdf">Exportar PDF</button>
+      <p id="resumen-dia">Hoy: 0h</p>
+      <p id="resumen-semana">Esta semana: 0h</p>
+      <p id="resumen-mes">Este mes: 0h</p>
     </section>
 
-    <section class="card">
+    <section id="historial">
       <h2>Historial</h2>
-      <ul id="historial"></ul>
+      <ul id="lista-registros"></ul>
     </section>
+
+    <button id="exportar-pdf">Exportar PDF</button>
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="script.js?v=1.3"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js?v=1.3');
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
