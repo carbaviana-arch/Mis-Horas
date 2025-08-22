@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro de Horas</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css?v=1.4" />
 </head>
 <body>
   <header>
-    <div class="logo">
+    <div class="app-icon">
       <!-- Icono SVG minimalista estilo iOS -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="3" ry="3"></rect>
-        <line x1="16" y1="2" x2="16" y2="6"></line>
-        <line x1="8" y1="2" x2="8" y2="6"></line>
-        <line x1="3" y1="10" x2="21" y2="10"></line>
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 2a1 1 0 0 0-1 1v1H4a2 2 0 0 0-2 2v3h20V6a2 2 0 0 0-2-2h-1V3a1 1 0 0 0-1-1H6zM2 10v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-9H2zm10 2a1 1 0 0 1 1 1v3.586l1.293 1.293a1 1 0 0 1-1.414 1.414l-2-2A1 1 0 0 1 11 16v-3a1 1 0 0 1 1-1z"/>
       </svg>
-      <h1>Registro de Horas</h1>
     </div>
+    <h1>Registro de Horas</h1>
     <label class="switch">
-      <input type="checkbox" id="darkModeSwitch">
+      <input type="checkbox" id="darkModeToggle">
       <span class="slider"></span>
     </label>
   </header>
@@ -28,25 +25,10 @@
   <main>
     <section id="registro">
       <h2>Nuevo Registro</h2>
-      <form id="registro-form">
-        <label for="fecha">Fecha</label>
-        <input type="date" id="fecha" required>
-
-        <label for="entrada">Hora de entrada</label>
-        <input type="time" id="entrada" required>
-
-        <label for="salida">Hora de salida</label>
-        <input type="time" id="salida" required>
-
-        <button type="submit">Guardar</button>
-      </form>
-    </section>
-
-    <section id="resumen">
-      <h2>Resumen</h2>
-      <p id="resumen-dia">Hoy: 0h</p>
-      <p id="resumen-semana">Esta semana: 0h</p>
-      <p id="resumen-mes">Este mes: 0h</p>
+      <label>Fecha: <input type="date" id="fecha"></label>
+      <label>Entrada: <input type="time" id="entrada"></label>
+      <label>Salida: <input type="time" id="salida"></label>
+      <button id="guardar">Guardar</button>
     </section>
 
     <section id="historial">
@@ -54,9 +36,19 @@
       <ul id="lista-registros"></ul>
     </section>
 
-    <button id="exportar-pdf">Exportar PDF</button>
+    <section id="resumen">
+      <h2>Resumen</h2>
+      <p id="resumen-dia"></p>
+      <p id="resumen-semana"></p>
+      <p id="resumen-mes"></p>
+    </section>
+
+    <section id="acciones">
+      <button id="exportar-pdf">Exportar PDF</button>
+    </section>
   </main>
 
-  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js?v=1.4"></script>
 </body>
 </html>
