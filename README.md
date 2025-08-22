@@ -10,7 +10,7 @@ Funciona sin conexión, permite modo oscuro y se puede instalar en dispositivos 
 - Cálculo automático del **total de horas trabajadas**.
 - **Historial de registros** con opción de eliminar.
 - **Resumen por día y semana**.
-- **Modo oscuro** con interruptor.
+- **Modo oscuro** con interruptor (switch).
 - Se instala como **PWA** (funciona offline y se añade a la pantalla de inicio).
 - **Cache busting** implementado para que siempre se actualice a la última versión.
 
@@ -35,14 +35,3 @@ Funciona sin conexión, permite modo oscuro y se puede instalar en dispositivos 
 ```bash
 git clone https://github.com/tuusuario/registro-horas.git
 cd registro-horas
-
-🛠️ Tecnologías usadas
-	•	HTML5, CSS3, JavaScript
-	•	PWA (Manifest + Service Worker)
-	•	LocalStorage para persistencia de datos
-
-⸻
-
-📄 Licencia
-
-Este proyecto es de uso libre. Puedes adaptarlo y mejorarlo según tus necesidades.
