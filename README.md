@@ -36,3 +36,6 @@ Funciona sin conexión, permite modo oscuro y se puede instalar en dispositivos 
 ```bash
 git clone https://github.com/tuusuario/registro-horas.git
 cd registro-horas
+### 2. Abrir en navegador
+
+Simplemente abre index.html en tu navegador.
