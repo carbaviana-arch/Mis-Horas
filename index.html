@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Horas</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a84ff">
+</head>
+<body>
+  <h1>Registro de Horas</h1>
+
+  <div class="card">
+    <label for="fecha">Fecha</label>
+    <input type="date" id="fecha">
+
+    <label for="entrada">Hora de Entrada</label>
+    <input type="time" id="entrada">
+
+    <label for="salida">Hora de Salida</label>
+    <input type="time" id="salida">
+
+    <button onclick="agregarRegistro()">Guardar</button>
+  </div>
+
+  <h2>Historial</h2>
+  <ul id="lista"></ul>
+
+  <div class="total" id="total">Total: 0 h</div>
+
+  <script src="script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker registrado"))
+        .catch(err => console.log("Error SW:", err));
+    }
+  </script>
+</body>
+</html>
