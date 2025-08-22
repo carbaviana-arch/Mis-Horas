@@ -17,3 +17,21 @@ Funciona sin conexión, permite modo oscuro y se puede instalar en dispositivos 
 ---
 
 ## 📂 Estructura del proyecto
+/
+├── index.html
+├── style.css
+├── script.js
+├── manifest.json
+├── service-worker.js
+├── icon-192.png
+├── icon-512.png
+└── README.md
+
+---
+
+## 🔧 Instalación y ejecución
+
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/tuusuario/registro-horas.git
+cd registro-horas
