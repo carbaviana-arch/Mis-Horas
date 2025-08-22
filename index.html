@@ -6,42 +6,49 @@
   <title>Registro de Horas</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0a84ff">
-  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="icon" href="icon.png">
 </head>
 <body>
   <header>
-    <h1>⏱️ Registro de Horas</h1>
-    <button class="tema" onclick="toggleDarkMode()">🌙</button>
+    <div class="logo">
+      ⏱️
+      <span>Registro de Horas</span>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="toggle-tema">
+      <span class="slider"></span>
+    </label>
   </header>
 
-  <div class="card">
-    <label for="fecha">Fecha</label>
-    <input type="date" id="fecha">
+  <main>
+    <section class="card">
+      <h2>Nuevo Registro</h2>
+      <form id="form-registro">
+        <label>Fecha:
+          <input type="date" id="fecha" required>
+        </label>
+        <label>Hora de entrada:
+          <input type="time" id="entrada" required>
+        </label>
+        <label>Hora de salida:
+          <input type="time" id="salida" required>
+        </label>
+        <button type="submit">Guardar</button>
+      </form>
+    </section>
 
-    <label for="entrada">Hora de Entrada</label>
-    <input type="time" id="entrada">
+    <section class="card">
+      <h2>Total de Horas</h2>
+      <p id="total">0 h</p>
+      <div id="resumen"></div>
+    </section>
 
-    <label for="salida">Hora de Salida</label>
-    <input type="time" id="salida">
-
-    <button onclick="agregarRegistro()">Guardar</button>
-  </div>
-
-  <h2>Historial</h2>
-  <ul id="lista"></ul>
-
-  <div class="total" id="total">Total: 0 h</div>
-
-  <div id="resumen" class="card"></div>
+    <section class="card">
+      <h2>Historial</h2>
+      <ul id="historial"></ul>
+    </section>
+  </main>
 
   <script src="script.js"></script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js")
-        .then(() => console.log("Service Worker registrado"))
-        .catch(err => console.log("Error SW:", err));
-    }
-  </script>
 </body>
 </html>
