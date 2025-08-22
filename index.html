@@ -6,13 +6,12 @@
   <title>Registro de Horas</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
 </head>
 <body>
   <header>
     <div class="logo">
-      ⏱️
-      <span>Registro de Horas</span>
+      ⏱️ Registro de Horas
     </div>
     <label class="switch">
       <input type="checkbox" id="toggle-tema">
@@ -38,14 +37,10 @@
     </section>
 
     <section class="card">
-      <h2>Total de Horas</h2>
-      <p id="total">0 h</p>
-      <div id="resumen"></div>
-    </section>
-
-    <section class="card">
       <h2>Historial</h2>
       <ul id="historial"></ul>
+      <p><strong>Total acumulado:</strong> <span id="total">0</span> h</p>
+      <div id="resumen"></div>
     </section>
   </main>
 
