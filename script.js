@@ -8,9 +8,7 @@ const darkToggle = document.getElementById("darkToggle");
 
 let registros = JSON.parse(localStorage.getItem("registros")) || [];
 
-// ===================
 // Guardar registro
-// ===================
 form.addEventListener("submit", e => {
   e.preventDefault();
   const fecha = document.getElementById("fecha").value;
@@ -24,18 +22,14 @@ form.addEventListener("submit", e => {
   render();
 });
 
-// ===================
 // Eliminar registro
-// ===================
 function eliminarRegistro(index) {
   registros.splice(index, 1);
   localStorage.setItem("registros", JSON.stringify(registros));
   render();
 }
 
-// ===================
 // Calcular minutos trabajados
-// ===================
 function calcularMinutos(entrada, salida) {
   const [h1, m1] = entrada.split(":").map(Number);
   const [h2, m2] = salida.split(":").map(Number);
@@ -45,18 +39,14 @@ function calcularMinutos(entrada, salida) {
   return fin - inicio;
 }
 
-// ===================
 // Convertir minutos a hh:mm
-// ===================
 function minutosAHoras(minutos) {
   const h = Math.floor(minutos/60);
   const m = minutos%60;
   return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
 }
 
-// ===================
 // Renderizar
-// ===================
 function render() {
   historialEl.innerHTML = "";
   let totalMin = 0, hoyMin = 0, semanaMin = 0, mesMin = 0;
@@ -88,9 +78,7 @@ function render() {
   resumenMesEl.textContent = minutosAHoras(mesMin);
 }
 
-// ===================
 // Semana ISO
-// ===================
 function getWeekNumber(date) {
   date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
   const dayNum = date.getUTCDay() || 7;
@@ -99,9 +87,7 @@ function getWeekNumber(date) {
   return Math.ceil((((date - yearStart)/86400000) +1)/7);
 }
 
-// ===================
 // Dark Mode Switch
-// ===================
 if(localStorage.getItem("darkMode")==="true"){
   document.body.classList.add("dark");
   darkToggle.checked = true;
