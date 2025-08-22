@@ -1,18 +1,35 @@
 :root {
-  --bg: #f2f2f7;
+  --bg: #f4f6f8;
   --card: #ffffff;
   --text: #111111;
   --secondary: #6b7280;
   --tint: #0a84ff;
-  --shadow: 0 4px 12px rgba(0,0,0,0.1);
-  --radius: 12px;
+  --danger: #ff3b30;
+  --shadow: 0 4px 8px rgba(0,0,0,0.06);
+  --radius: 16px;
+}
+
+body.dark {
+  --bg: #1e1e1f;
+  --card: #2a2a2c;
+  --text: #f3f3f3;
+  --secondary: #9ca3af;
+  --tint: #0a84ff;
+  --danger: #ff453a;
+  --shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
 }
 
 body {
-  font-family: sans-serif;
-  margin: 0;
   background: var(--bg);
   color: var(--text);
+  line-height: 1.5;
   padding: 1rem;
 }
 
@@ -23,92 +40,146 @@ header {
   margin-bottom: 1rem;
 }
 
-h1 {
-  margin: 0;
+header .logo {
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
 }
 
-.tema {
-  background: var(--tint);
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  border-radius: var(--radius);
-  padding: 0.4rem 0.6rem;
+/* ==== SWITCH DARK MODE ==== */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
   cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .3s;
+  border-radius: 26px;
 }
 
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--tint);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* ==== CARD ==== */
 .card {
   background: var(--card);
-  padding: 1rem;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  padding: 1rem;
   margin-bottom: 1rem;
+  box-shadow: var(--shadow);
 }
 
-label {
+.card h2 {
+  margin-bottom: .8rem;
+  font-size: 1.1rem;
+}
+
+/* ==== FORM ==== */
+form label {
   display: block;
-  margin-top: 0.5rem;
-  font-weight: bold;
+  margin-bottom: .8rem;
+  font-size: .9rem;
 }
 
 input {
   width: 100%;
-  padding: 0.5rem;
-  margin-top: 0.2rem;
-  border: 1px solid #ddd;
-  border-radius: var(--radius);
+  padding: .4rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: .2rem;
 }
 
 button {
-  margin-top: 1rem;
-  width: 100%;
-  padding: 0.7rem;
   background: var(--tint);
-  border: none;
   color: white;
-  font-weight: bold;
-  border-radius: var(--radius);
+  border: none;
+  padding: .6rem 1rem;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
+  transition: background .2s;
 }
 
-ul {
+button:hover {
+  background: #0066dd;
+}
+
+button:active {
+  background: #0057bb;
+}
+
+/* ==== HISTORIAL ==== */
+#historial {
   list-style: none;
-  padding: 0;
 }
 
-li {
-  background: var(--card);
-  padding: 0.8rem;
-  margin-bottom: 0.5rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+#historial li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  padding: .6rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-li button.eliminar {
-  background: #ff3b30;
-  border: none;
-  color: white;
-  border-radius: var(--radius);
-  cursor: pointer;
-  padding: 0.3rem 0.6rem;
+#historial li .info {
+  flex: 1;
 }
 
-.total {
-  text-align: center;
+#historial .fecha {
   font-weight: bold;
-  margin-top: 1rem;
+  font-size: .95rem;
 }
 
-/* 🌙 Tema oscuro */
-body.dark {
-  --bg: #1c1c1e;
-  --card: #2c2c2e;
-  --text: #ffffff;
-  --secondary: #a1a1aa;
-  --tint: #0a84ff;
-  --shadow: 0 4px 12px rgba(0,0,0,0.5);
+#historial .horas {
+  color: var(--secondary);
+  font-size: .85rem;
+  text-align: right;
+}
+
+#historial button {
+  background: transparent;
+  color: var(--danger);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: .5rem;
+  transition: opacity .2s;
+}
+
+#historial button:hover {
+  opacity: .7;
 }
