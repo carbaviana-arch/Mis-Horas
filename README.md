@@ -1,42 +1,23 @@
-# ⏱️ Registro de Horas (PWA)
+# ⏱️ Registro de Horas
 
-Aplicación web progresiva (PWA) para registrar horas de entrada y salida en el trabajo, con resumen diario, semanal y mensual.  
-Funciona sin conexión, permite modo oscuro y se puede instalar en dispositivos móviles como una app nativa.
+App para registrar tus horas de entrada y salida en el trabajo.  
+Funciona como PWA, se puede usar offline y se puede instalar en tu móvil como app nativa.
 
----
+## Funcionalidades
+- Guardar fecha, hora de entrada y salida.
+- Total de horas trabajadas.
+- Resumen por día, semana y mes.
+- Historial de registros con opción de eliminar.
+- Modo oscuro con interruptor (switch).
+- Formato de horas en hh:mm.
+- **Exportar tus registros a PDF** para informes o imprimir.
+- Funciona offline gracias a PWA.
 
-## 🚀 Características
-- Registro de **hora de entrada y salida**.
-- Cálculo automático del **total de horas trabajadas**.
-- **Historial de registros** con opción de eliminar.
-- **Resumen por día, semana y mes**.
-- **Modo oscuro** con interruptor (switch).
-- Formato de horas en **hh:mm**.
-- Se instala como **PWA** (funciona offline y se añade a la pantalla de inicio).
-- **Cache busting** implementado para que siempre se actualice a la última versión.
+## Cómo usar
+1. Abre la app en tu navegador o instálala en tu móvil.
+2. Ingresa la fecha, hora de entrada y salida y pulsa "Guardar".
+3. Consulta el resumen diario, semanal y mensual.
+4. En el historial, puedes eliminar registros si lo deseas.
+5. Pulsa "Exportar PDF" para guardar tus registros en un archivo PDF.
 
----
-
-## 📂 Estructura del proyecto
-/
-├── index.html
-├── style.css
-├── script.js
-├── manifest.json
-├── service-worker.js
-├── icon-192.png
-├── icon-512.png
-└── README.md
-
----
-
-## 🔧 Instalación y ejecución
-
-### 1. Clonar el repositorio
-```bash
-git clone https://github.com/tuusuario/registro-horas.git
-cd registro-horas
-
-2. Abrir en navegador
-
-Simplemente abre index.html en tu navegador.
+¡Listo para gestionar tus horas de manera sencilla y profesional!
