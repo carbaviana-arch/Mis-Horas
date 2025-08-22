@@ -1,11 +1,11 @@
-const CACHE_NAME = "registro-horas-v1.1";
+const CACHE_NAME = "registro-horas-v1.2";
 const urlsToCache = [
-  "./index.html?v=1.1",
-  "./style.css?v=1.1",
-  "./script.js?v=1.1",
-  "./manifest.json?v=1.1",
-  "./icon-192.png?v=1.1",
-  "./icon-512.png?v=1.1"
+  "./index.html?v=1.2",
+  "./style.css?v=1.2",
+  "./script.js?v=1.2",
+  "./manifest.json?v=1.2",
+  "./icon-192.png?v=1.2",
+  "./icon-512.png?v=1.2"
 ];
 
 self.addEventListener("install", event => {
