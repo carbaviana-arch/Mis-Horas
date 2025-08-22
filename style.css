@@ -1,0 +1,76 @@
+:root {
+  --bg: #f2f2f7;
+  --card: #ffffff;
+  --text: #111111;
+  --secondary: #6b7280;
+  --tint: #0a84ff;
+  --shadow: 0 4px 12px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  padding: 1rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+.card {
+  background: var(--card);
+  padding: 1rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+}
+
+button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.7rem;
+  background: var(--tint);
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: var(--card);
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+}
+
+.total {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 1rem;
+}
