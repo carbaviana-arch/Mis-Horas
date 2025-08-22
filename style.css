@@ -51,12 +51,24 @@ main {
   transition: background 0.3s, color 0.3s;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
 button {
   background: var(--primary);
   color: white;
   border: none;
-  padding: 0.6rem 1rem;
-  border-radius: var(--radius);
   cursor: pointer;
   transition: background 0.2s;
 }
