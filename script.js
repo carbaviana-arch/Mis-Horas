@@ -1,102 +1,119 @@
+const form = document.getElementById("form-registro");
+const fechaEl = document.getElementById("fecha");
+const entradaEl = document.getElementById("entrada");
+const salidaEl = document.getElementById("salida");
+const historialEl = document.getElementById("historial");
+const totalEl = document.getElementById("total");
+const resumenEl = document.getElementById("resumen");
+const toggleTema = document.getElementById("toggle-tema");
+
 let registros = JSON.parse(localStorage.getItem("registros")) || [];
 
-const listaEl = document.getElementById("lista");
-const totalEl = document.getElementById("total");
+// Guardar registro
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const fecha = fechaEl.value;
+  const entrada = entradaEl.value;
+  const salida = salidaEl.value;
 
+  if (!fecha || !entrada || !salida) return;
+
+  const horas = calcularHoras(entrada, salida);
+
+  registros.push({ fecha, entrada, salida, horas });
+  localStorage.setItem("registros", JSON.stringify(registros));
+
+  form.reset();
+  render();
+});
+
+// Calcular diferencia de horas
 function calcularHoras(entrada, salida) {
-  let [h1, m1] = entrada.split(":").map(Number);
-  let [h2, m2] = salida.split(":").map(Number);
-
-  let inicio = h1 * 60 + m1;
-  let fin = h2 * 60 + m2;
-  let diff = fin - inicio;
-
-  return diff > 0 ? (diff / 60).toFixed(2) : 0;
+  const [eh, em] = entrada.split(":").map(Number);
+  const [sh, sm] = salida.split(":").map(Number);
+  let inicio = eh * 60 + em;
+  let fin = sh * 60 + sm;
+  if (fin < inicio) fin += 24 * 60; // cruza medianoche
+  return (fin - inicio) / 60;
 }
 
-function agregarRegistro() {
-  const fecha = document.getElementById("fecha").value;
-  const entrada = document.getElementById("entrada").value;
-  const salida = document.getElementById("salida").value;
-
-  if (!fecha || !entrada || !salida) {
-    alert("Completa todos los campos");
-    return;
-  }
-
-  let horas = calcularHoras(entrada, salida);
-
-  let registro = { fecha, entrada, salida, horas };
-  registros.push(registro);
-  localStorage.setItem("registros", JSON.stringify(registros));
-
-  mostrarRegistros();
-}
-
-function eliminarRegistro(index) {
-  registros.splice(index, 1);
-  localStorage.setItem("registros", JSON.stringify(registros));
-  mostrarRegistros();
-}
-
-function mostrarRegistros() {
-  listaEl.innerHTML = "";
-  let totalHoras = 0;
+// Renderizar historial
+function render() {
+  historialEl.innerHTML = "";
+  let total = 0;
 
   registros.forEach((r, i) => {
-    let li = document.createElement("li");
+    total += r.horas;
+
+    const li = document.createElement("li");
     li.innerHTML = `
-      <span>${r.fecha} | ${r.entrada} - ${r.salida}</span>
-      <span>${r.horas} h</span>
-      <button class="eliminar" onclick="eliminarRegistro(${i})">✖</button>
+      <div class="info">
+        <div class="fecha">${r.fecha}</div>
+        <div class="horas">${r.entrada} - ${r.salida} (${r.horas.toFixed(2)} h)</div>
+      </div>
+      <button onclick="eliminar(${i})">✕</button>
     `;
-    listaEl.appendChild(li);
-    totalHoras += parseFloat(r.horas);
+    historialEl.appendChild(li);
   });
 
-  totalEl.textContent = "Total: " + totalHoras.toFixed(2) + " h";
-  resumenHoras();
+  totalEl.textContent = total.toFixed(2) + " h";
+  renderResumen();
 }
 
-function resumenHoras() {
-  let resumenDia = {};
-  let resumenSemana = {};
+// Eliminar registro
+function eliminar(index) {
+  registros.splice(index, 1);
+  localStorage.setItem("registros", JSON.stringify(registros));
+  render();
+}
+
+// Resumen por día y semana
+function renderResumen() {
+  let porDia = {};
+  let porSemana = {};
 
   registros.forEach(r => {
-    // resumen por día
-    if (!resumenDia[r.fecha]) resumenDia[r.fecha] = 0;
-    resumenDia[r.fecha] += parseFloat(r.horas);
+    porDia[r.fecha] = (porDia[r.fecha] || 0) + r.horas;
 
-    // resumen por semana
-    let fechaObj = new Date(r.fecha);
-    let primerDia = new Date(fechaObj.getFullYear(), 0, 1);
-    let numSemana = Math.ceil((((fechaObj - primerDia) / 86400000) + primerDia.getDay() + 1) / 7);
-    let keySemana = `${fechaObj.getFullYear()}-W${numSemana}`;
-    if (!resumenSemana[keySemana]) resumenSemana[keySemana] = 0;
-    resumenSemana[keySemana] += parseFloat(r.horas);
+    let semana = getSemana(r.fecha);
+    porSemana[semana] = (porSemana[semana] || 0) + r.horas;
   });
 
-  let resumenHTML = "<h3>Resumen por día</h3><ul>";
-  for (let dia in resumenDia) {
-    resumenHTML += `<li>${dia}: ${resumenDia[dia].toFixed(2)} h</li>`;
+  let html = "<h3>Por Día</h3><ul>";
+  for (let d in porDia) {
+    html += `<li>${d}: ${porDia[d].toFixed(2)} h</li>`;
   }
-  resumenHTML += "</ul><h3>Resumen por semana</h3><ul>";
-  for (let semana in resumenSemana) {
-    resumenHTML += `<li>${semana}: ${resumenSemana[semana].toFixed(2)} h</li>`;
+  html += "</ul><h3>Por Semana</h3><ul>";
+  for (let s in porSemana) {
+    html += `<li>Semana ${s}: ${porSemana[s].toFixed(2)} h</li>`;
   }
-  resumenHTML += "</ul>";
+  html += "</ul>";
 
-  document.getElementById("resumen").innerHTML = resumenHTML;
+  resumenEl.innerHTML = html;
 }
 
-function toggleDarkMode() {
-  document.body.classList.toggle("dark");
-  localStorage.setItem("temaOscuro", document.body.classList.contains("dark"));
+function getSemana(fecha) {
+  const f = new Date(fecha);
+  const año = f.getFullYear();
+  const primera = new Date(año, 0, 1);
+  const diff = (f - primera) / 86400000;
+  return Math.ceil((diff + primera.getDay() + 1) / 7);
 }
 
-// Mantener el tema al recargar
-if (localStorage.getItem("temaOscuro") === "true") {
+// Tema oscuro con switch
+if (localStorage.getItem("tema") === "oscuro") {
   document.body.classList.add("dark");
+  toggleTema.checked = true;
 }
 
-mostrarRegistros();
+toggleTema.addEventListener("change", () => {
+  if (toggleTema.checked) {
+    document.body.classList.add("dark");
+    localStorage.setItem("tema", "oscuro");
+  } else {
+    document.body.classList.remove("dark");
+    localStorage.setItem("tema", "claro");
+  }
+});
+
+render();
