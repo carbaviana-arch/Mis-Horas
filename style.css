@@ -16,8 +16,25 @@ body {
   padding: 1rem;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
 h1 {
-  text-align: center;
+  margin: 0;
+}
+
+.tema {
+  background: var(--tint);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: var(--radius);
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
 }
 
 .card {
@@ -67,10 +84,31 @@ li {
   box-shadow: var(--shadow);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+li button.eliminar {
+  background: #ff3b30;
+  border: none;
+  color: white;
+  border-radius: var(--radius);
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
 }
 
 .total {
   text-align: center;
   font-weight: bold;
   margin-top: 1rem;
+}
+
+/* 🌙 Tema oscuro */
+body.dark {
+  --bg: #1c1c1e;
+  --card: #2c2c2e;
+  --text: #ffffff;
+  --secondary: #a1a1aa;
+  --tint: #0a84ff;
+  --shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
