@@ -35,3 +35,14 @@ Funciona sin conexión, permite modo oscuro y se puede instalar en dispositivos 
 ```bash
 git clone https://github.com/tuusuario/registro-horas.git
 cd registro-horas
+
+🛠️ Tecnologías usadas
+	•	HTML5, CSS3, JavaScript
+	•	PWA (Manifest + Service Worker)
+	•	LocalStorage para persistencia de datos
+
+⸻
+
+📄 Licencia
+
+Este proyecto es de uso libre. Puedes adaptarlo y mejorarlo según tus necesidades.
