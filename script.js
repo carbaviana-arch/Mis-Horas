@@ -1,11 +1,12 @@
-let registros = JSON.parse(localStorage.getItem("registros")) || [];
-
 const form = document.getElementById("registro-form");
 const historialEl = document.getElementById("historial");
-const totalEl = document.getElementById("total-horas");
+const totalHorasEl = document.getElementById("total-horas");
 const resumenDiaEl = document.getElementById("resumen-dia");
 const resumenSemanaEl = document.getElementById("resumen-semana");
+const resumenMesEl = document.getElementById("resumen-mes");
 const darkToggle = document.getElementById("darkToggle");
+
+let registros = JSON.parse(localStorage.getItem("registros")) || [];
 
 // ===================
 // Guardar registro
@@ -15,12 +16,10 @@ form.addEventListener("submit", e => {
   const fecha = document.getElementById("fecha").value;
   const entrada = document.getElementById("entrada").value;
   const salida = document.getElementById("salida").value;
-
   if (!fecha || !entrada || !salida) return;
 
   registros.push({ fecha, entrada, salida });
   localStorage.setItem("registros", JSON.stringify(registros));
-
   form.reset();
   render();
 });
@@ -35,15 +34,24 @@ function eliminarRegistro(index) {
 }
 
 // ===================
-// Calcular horas
+// Calcular minutos trabajados
 // ===================
-function calcularHoras(entrada, salida) {
+function calcularMinutos(entrada, salida) {
   const [h1, m1] = entrada.split(":").map(Number);
   const [h2, m2] = salida.split(":").map(Number);
-  let inicio = h1 * 60 + m1;
-  let fin = h2 * 60 + m2;
-  if (fin < inicio) fin += 24 * 60;
-  return (fin - inicio) / 60;
+  let inicio = h1*60 + m1;
+  let fin = h2*60 + m2;
+  if (fin < inicio) fin += 24*60;
+  return fin - inicio;
+}
+
+// ===================
+// Convertir minutos a hh:mm
+// ===================
+function minutosAHoras(minutos) {
+  const h = Math.floor(minutos/60);
+  const m = minutos%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
 }
 
 // ===================
@@ -51,51 +59,56 @@ function calcularHoras(entrada, salida) {
 // ===================
 function render() {
   historialEl.innerHTML = "";
-  let total = 0;
-  let horasHoy = 0;
-  let horasSemana = 0;
+  let totalMin = 0, hoyMin = 0, semanaMin = 0, mesMin = 0;
+  const hoy = new Date().toISOString().slice(0,10);
+  const fechaActual = new Date();
+  const mesActual = fechaActual.getMonth();
+  const semanaActual = getWeekNumber(fechaActual);
 
-  const hoy = new Date().toISOString().slice(0, 10);
-  const inicioSemana = new Date();
-  inicioSemana.setDate(inicioSemana.getDate() - inicioSemana.getDay());
+  registros.forEach((r,i)=>{
+    const min = calcularMinutos(r.entrada, r.salida);
+    totalMin += min;
 
-  registros.forEach((reg, i) => {
-    const horas = calcularHoras(reg.entrada, reg.salida);
-    total += horas;
-
-    if (reg.fecha === hoy) horasHoy += horas;
-    const fechaReg = new Date(reg.fecha);
-    if (fechaReg >= inicioSemana) horasSemana += horas;
+    if(r.fecha===hoy) hoyMin += min;
+    const f = new Date(r.fecha);
+    if(getWeekNumber(f)===semanaActual) semanaMin += min;
+    if(f.getMonth()===mesActual && f.getFullYear()===fechaActual.getFullYear()) mesMin += min;
 
     const li = document.createElement("li");
     li.innerHTML = `
-      <span>${reg.fecha} — ${reg.entrada} a ${reg.salida} (${horas.toFixed(2)}h)</span>
-      <button onclick="eliminarRegistro(${i})">✕</button>
+      <span>${r.fecha} (${r.entrada} - ${r.salida})</span>
+      <span>${minutosAHoras(min)} <button onclick="eliminarRegistro(${i})">✕</button></span>
     `;
     historialEl.appendChild(li);
   });
 
-  totalEl.textContent = total.toFixed(2);
-  resumenDiaEl.textContent = horasHoy.toFixed(2);
-  resumenSemanaEl.textContent = horasSemana.toFixed(2);
+  totalHorasEl.textContent = minutosAHoras(totalMin);
+  resumenDiaEl.textContent = minutosAHoras(hoyMin);
+  resumenSemanaEl.textContent = minutosAHoras(semanaMin);
+  resumenMesEl.textContent = minutosAHoras(mesMin);
+}
+
+// ===================
+// Semana ISO
+// ===================
+function getWeekNumber(date) {
+  date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
+  return Math.ceil((((date - yearStart)/86400000) +1)/7);
 }
 
 // ===================
 // Dark Mode Switch
 // ===================
-if (localStorage.getItem("darkMode") === "true") {
+if(localStorage.getItem("darkMode")==="true"){
   document.body.classList.add("dark");
   darkToggle.checked = true;
 }
-
-darkToggle.addEventListener("change", () => {
-  if (darkToggle.checked) {
-    document.body.classList.add("dark");
-    localStorage.setItem("darkMode", "true");
-  } else {
-    document.body.classList.remove("dark");
-    localStorage.setItem("darkMode", "false");
-  }
+darkToggle.addEventListener("change",()=>{
+  document.body.classList.toggle("dark");
+  localStorage.setItem("darkMode", document.body.classList.contains("dark"));
 });
 
 render();
