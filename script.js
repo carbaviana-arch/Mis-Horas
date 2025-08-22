@@ -12,7 +12,7 @@ if (localStorage.getItem("tema") === "oscuro") {
   toggleTema.checked = true;
 }
 
-// Escuchar cambios de tema
+// Escuchar cambios en el switch
 toggleTema.addEventListener("change", () => {
   if (toggleTema.checked) {
     document.body.classList.add("dark");
@@ -23,6 +23,7 @@ toggleTema.addEventListener("change", () => {
   }
 });
 
+// Guardar registro
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const fecha = document.getElementById("fecha").value;
@@ -39,20 +40,24 @@ form.addEventListener("submit", (e) => {
   render();
 });
 
+// Calcular horas
 function calcularHoras(entrada, salida) {
   const [h1, m1] = entrada.split(":").map(Number);
   const [h2, m2] = salida.split(":").map(Number);
-  const inicio = h1 * 60 + m1;
-  const fin = h2 * 60 + m2;
+  let inicio = h1 * 60 + m1;
+  let fin = h2 * 60 + m2;
+  if (fin < inicio) fin += 24 * 60; // cruza medianoche
   return (fin - inicio) / 60;
 }
 
+// Eliminar registro
 function eliminarRegistro(i) {
   registros.splice(i, 1);
   localStorage.setItem("registros", JSON.stringify(registros));
   render();
 }
 
+// Renderizar historial y resumen
 function render() {
   historialEl.innerHTML = "";
   let total = 0;
