@@ -4,16 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Horas</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="stylesheet" href="style.css?v=1.1">
 </head>
 <body>
   <header>
-    <div class="logo">⏱️ Registro de Horas</div>
-    <!-- Switch de modo oscuro -->
+    <h1>⏱️ Registro de Horas</h1>
     <label class="switch">
-      <input type="checkbox" id="toggle-tema">
+      <input type="checkbox" id="darkToggle">
       <span class="slider"></span>
     </label>
   </header>
@@ -21,14 +18,14 @@
   <main>
     <section class="card">
       <h2>Nuevo Registro</h2>
-      <form id="form-registro">
+      <form id="registro-form">
         <label>Fecha:
           <input type="date" id="fecha" required>
         </label>
-        <label>Hora de entrada:
+        <label>Entrada:
           <input type="time" id="entrada" required>
         </label>
-        <label>Hora de salida:
+        <label>Salida:
           <input type="time" id="salida" required>
         </label>
         <button type="submit">Guardar</button>
@@ -36,13 +33,18 @@
     </section>
 
     <section class="card">
+      <h2>Resumen</h2>
+      <p>Total de horas: <span id="total-horas">0</span></p>
+      <p>Hoy: <span id="resumen-dia">0</span></p>
+      <p>Semana: <span id="resumen-semana">0</span></p>
+    </section>
+
+    <section class="card">
       <h2>Historial</h2>
       <ul id="historial"></ul>
-      <p><strong>Total acumulado:</strong> <span id="total">0</span> h</p>
-      <div id="resumen"></div>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=1.1"></script>
 </body>
 </html>
